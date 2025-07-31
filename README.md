@@ -29,11 +29,11 @@ This project scrapes job postings from [LinkedIn Jobs](https://www.linkedin.com/
 ```
 linkedin-job-scraper/
 │
-├── linkedin_scraper.py # Main scraper logic
-├── cookies.json # Saved cookies from manual login
-├── linkedin_python_jobs.xlsx # Output file (auto-generated)
-├── requirements.txt # Python dependencies
-└── README.md # Project guide
+├── linkedin_scraper.py          # Main scraper logic
+├── cookies.json                 # Saved cookies from manual login
+├── linkedin_python_jobs.xlsx    # Output file (auto-generated)
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project guide
 ```
 
 ---
@@ -46,13 +46,17 @@ linkedin-job-scraper/
 git clone https://github.com/your-username/linkedin-job-scraper.git
 
 cd linkedin-job-scraper
+```
 
-Install dependencies:
+2. **Install dependencies**:
 
+```bash
 pip install -r requirements.txt
+```
 
-Example requirements.txt:
+3. **Example requirements.txt**:
 
+```plaintext
 et_xmlfile==2.0.0
 greenlet==3.2.3
 numpy==2.3.2
@@ -65,43 +69,29 @@ pytz==2025.2
 six==1.17.0
 typing_extensions==4.14.1
 tzdata==2025.2
-
+```
+4. **Install Playwright Browsers**:
 Install Playwright Browsers:
 
+```bash
 playwright install
+```
+5. **Run the Scraper**:
 
-🔐 One-Time Cookie Setup
-
-To avoid logging in every time (and bypass bot detection), save your LinkedIn login cookies:
-➤ Step 1: Create save_cookies.py
-
-import asyncio
-from playwright.async_api import async_playwright
-import json
-
-async def run():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        context = await browser.new_context()
-        page = await context.new_page()
-        await page.goto("https://www.linkedin.com/login")
-        print("Please log in manually...")
-        await page.wait_for_timeout(30000)  # Wait 30 seconds to log in
-        cookies = await context.storage_state()
-        with open("cookies.json", "w") as f:
-            json.dump(cookies, f)
-        await browser.close()
-
-asyncio.run(run())
-
-➤ Step 2: Run it
+   - First, manually log in to LinkedIn and save your cookies:
+     - Open `cookies.json` in a text editor and paste your cookies after logging in.
+     - Make sure the cookies are valid and not expired.
+```bash
 
 python save_cookies.py
+```
 
-Login manually and wait 30 seconds → cookies.json will be created.
-🧠 How to Use the Scraper
-
+   - Now run the scraper:
+```bash
 python linkedin_scraper.py
+```
+
+```
 
 ✅ The scraper will:
 
